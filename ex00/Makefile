@@ -3,13 +3,10 @@ NAME 		=	ex00
 CXX 		=	c++
 CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
 
-INCS		=	./Fixed.hpp\
-				./Point.hpp\
+INCS		=	./ClapTrap.hpp\
 
 SRCS		=	./main.cpp\
-				./Fixed.cpp\
-				./Point.cpp\
-				./bsp.cpp\
+				./ClapTrap.cpp\
 
 OBJS		=	$(SRCS:%.cpp=%.o)
 
