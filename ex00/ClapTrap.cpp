@@ -1,16 +1,30 @@
-#include <iostream>
-#include <string>
+#include "ClapTrap.hpp"
 
-class ClapTrap
+ClapTrap::ClapTrap(void)
 {
-public:
-	void attack(const std::string& target);
-	void takeDamage(unsigned int amount);
-	void beRepaired(unsigned int amount);
-private:
-	std::string	name;
-	int			hitPoint;
-	int			energyPoints;
-	int			attackDamage;
+}
 
-};
+ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
+{
+}
+
+ClapTrap::ClapTrap(const ClapTrap& other)
+{
+}
+
+ClapTrap::~ClapTrap(void)
+{
+}
+
+
+void ClapTrap::attack(const std::string& target)
+{
+}
+
+void ClapTrap::takeDamage(unsigned int amount)
+{
+}
+
+void ClapTrap::beRepaired(unsigned int amount)
+{
+}
