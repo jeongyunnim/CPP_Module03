@@ -5,6 +5,11 @@ class ClapTrap
 {
 public:
 
+	std::string	getName(void) const;
+	int			getHitPoints(void) const;
+	int			getEnergyPoints(void) const;
+	int			getAttackDamage(void) const;
+
 	ClapTrap(void);
 	~ClapTrap(void);
 	ClapTrap(const ClapTrap& other);
