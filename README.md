@@ -36,7 +36,7 @@ ClapTrap이 스스로 수리를 하면 <amount>만큼 hit point를 회복한다.
 
 ClapTrap으로는 절대 충분하지 않기 때문에, 그 파생로봇 ScavTrap을 만들 것이다.
 ScavTrap은 Claptrap의 생성자와 소멸자를 상속받을 것이다. 그러나 생성자와 소멸자, attack은 다른 메세지를 출력해야한다.
-결국 ClapTrap은 그 개별성을 알아야 한다.
+ClapTrap과 구별할 수 있어야 한다.
 
 테스트에서 생성자와 소멸자를 잘 보여줘야 한다. ScavTrap이 생성될 때, 프로그램은 ClapTrap을 생성하면서 시작할 것이다. 소멸자는 반대의 순서로 진행된다. 왜일까?
 
