@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "ClapTrap.hpp"
 
 std::string	ClapTrap::getName(void) const
@@ -5,17 +6,17 @@ std::string	ClapTrap::getName(void) const
 	return (_name);
 }
 
-int			ClapTrap::getHitPoints(void) const
+int	ClapTrap::getHitPoints(void) const
 {
 	return (_hitPoints);
 }
 
-int			ClapTrap::getEnergyPoints(void) const
+int	ClapTrap::getEnergyPoints(void) const
 {
 	return (_energyPoints);
 }
 
-int			ClapTrap::getAttackDamage(void) const
+int	ClapTrap::getAttackDamage(void) const
 {
 	return (_attackDamage);
 }
@@ -40,7 +41,7 @@ ClapTrap::ClapTrap(const std::string& name)
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
 {
-	std::cout << "Assignment operator called.\nname: " << _name << " -> " << rhs._name \
+	std::cout << "Assignment operator called.\nname: " <<  _name << " -> " << rhs._name \
 				<< "\nhit points: " << _hitPoints << " -> " << rhs._hitPoints \
 				<< "\nenergy points: " << _energyPoints << " -> " << rhs._energyPoints \
 				<< "\nattack damage: " << _attackDamage << " -> " << rhs._attackDamage << std::endl;
@@ -67,7 +68,7 @@ ClapTrap::~ClapTrap(void)
 
 void ClapTrap::attack(const std::string& target)
 {
-	if (_energyPoints == 0 || _hitPoints == 0)
+	if (_energyPoints <= 0 || _hitPoints <= 0)
 		std::cout << "Attack failed: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	else
 	{
@@ -81,11 +82,12 @@ void ClapTrap::takeDamage(unsigned int amount)
 	if (amount == 0)
 	{
 		std::cout << "ClapTrap " << _name << " takes " << "zero damage! " << "[HP]: " << _hitPoints << std::endl;
-		return ;
 	}
-	if (_hitPoints - amount > 0)
+	else if (_hitPoints - amount > 0)
 	{
 		_hitPoints -= amount;
+		if (_hitPoints < 0)
+			_hitPoints = 0;
 		std::cout << "ClapTrap " << _name << " takes " << amount << " points of damage! " << "[HP]: " << _hitPoints << ".\n" << _name << ": \"Ooooch!!\""<< std::endl;
 	}
 	else
