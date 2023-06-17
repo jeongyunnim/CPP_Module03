@@ -20,6 +20,21 @@ int			ClapTrap::getAttackDamage(void) const
 	return (_attackDamage);
 }
 
+void		ClapTrap::setHitPoints(int hitPoints)
+{
+	_hitPoints = hitPoints;
+}
+
+void		ClapTrap::setEnergyPoints(int energyPoints)
+{
+	_energyPoints = energyPoints;
+}
+
+void		ClapTrap::setAttackDamage(int attackDamage)
+{
+	_attackDamage = attackDamage;
+}
+
 ClapTrap::ClapTrap(void)
 	:	_name("* NONE *")
 	,	_hitPoints(10)

@@ -10,6 +10,9 @@ public:
 	int			getHitPoints(void) const;
 	int			getEnergyPoints(void) const;
 	int			getAttackDamage(void) const;
+	void		setHitPoints(int hitPoints);
+	void		setEnergyPoints(int energyPoints);
+	void		setAttackDamage(int attackDamage);
 
 	ClapTrap(void);
 	~ClapTrap(void);
@@ -17,9 +20,9 @@ public:
 	ClapTrap& operator=(const ClapTrap& rhs);
 	ClapTrap(const std::string& name);
 
-	void attack(const std::string& target);
-	void takeDamage(unsigned int amount);
-	void beRepaired(unsigned int amount);
+	virtual void attack(const std::string& target);
+	virtual void takeDamage(unsigned int amount);
+	virtual void beRepaired(unsigned int amount);
 
 private:
 
