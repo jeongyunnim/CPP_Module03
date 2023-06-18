@@ -20,7 +20,7 @@ FragTrap::FragTrap(const FragTrap& other)
 	setHitPoints(100);
 	setEnergyPoints(100);
 	setAttackDamage(30);
-	std::cout << "[FragTrap]Copy constructor is called. \"FragTrap <" << getName() << "> kill kill kill kill\"" << std::endl;
+	std::cout << "[FragTrap]Copy constructor is called. \"Update complete. FragTrap <" << getName() << "> kill kill kill kill\"" << std::endl;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& rhs)
@@ -42,7 +42,7 @@ FragTrap::FragTrap(const std::string& name)
 	setHitPoints(100);
 	setEnergyPoints(100);
 	setAttackDamage(30);
-	std::cout << "[FragTrap]String constructor is called. \"FragTrap <" << getName() << "> kill kill kill kill\"" << std::endl;
+	std::cout << "[FragTrap]String constructor is called. \"Update complete. FragTrap <" << getName() << "> kill kill kill kill\"" << std::endl;
 }
 
 void	FragTrap::attack(const std::string& target)
@@ -68,7 +68,7 @@ void	FragTrap::takeDamage(unsigned int amount)
 		setHitPoints(getHitPoints() - amount);
 		if (getHitPoints() < 0)
 			setHitPoints(0);
-		std::cout << "[FragTrap]FragTrap " << getName() << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << getName() << ": \"revenge...\""<< std::endl;
+		std::cout << "[FragTrap]FragTrap " << getName() << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << getName() << ": \"Danger Danger...\""<< std::endl;
 	}
 	else
 	{
