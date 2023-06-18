@@ -57,7 +57,6 @@ DiamondTrap::DiamondTrap(const std::string& pName)
 
 void	DiamondTrap::attack(const std::string& target)
 {
-	std::cout << "[DiamondTrap] ";
 	ScavTrap::attack(target);
 }
 
