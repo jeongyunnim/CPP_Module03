@@ -17,9 +17,9 @@ ScavTrap::~ScavTrap(void)
 ScavTrap::ScavTrap(const ScavTrap& other)
 	:	ClapTrap(other.getName())
 {
-	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
+	setHitPoints(getHitPoints());
+	setEnergyPoints(getEnergyPoints());
+	setAttackDamage(getAttackDamage());
 	std::cout << "[ScavTrap]Copy constructor is called. \"" << getName() << " is ready.\"" << std::endl;
 }
 

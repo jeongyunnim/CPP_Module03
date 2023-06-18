@@ -40,13 +40,8 @@ void		ClapTrap::setAttackDamage(int attackDamage)
 	_attackDamage = attackDamage;
 }
 
-std::string	ClapTrap::name(void) const
-{
-	return (_name + "_clap_name");
-}
-
 ClapTrap::ClapTrap(void)
-	:	_name("* NONE *")
+	:	_name("* NONE_clap_name *")
 	,	_hitPoints(10)
 	,	_energyPoints(10)
 	,	_attackDamage(0)
@@ -60,7 +55,7 @@ ClapTrap::~ClapTrap(void)
 }
 
 ClapTrap::ClapTrap(const std::string& name)
-	:	_name(name)
+	:	_name(name + "_clap_name")
 	,	_hitPoints(10)
 	,	_energyPoints(10)
 	,	_attackDamage(0)
@@ -82,7 +77,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& rhs)
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other)
-	:	_name(other._name)
+	:	_name(other._name + "_clap_name")
 	,	_hitPoints(other._hitPoints)
 	,	_energyPoints(other._energyPoints)
 	,	_attackDamage(other._attackDamage)

@@ -17,9 +17,9 @@ FragTrap::~FragTrap(void)
 FragTrap::FragTrap(const FragTrap& other)
 	:	ClapTrap(other.getName())
 {
-	setHitPoints(100);
-	setEnergyPoints(100);
-	setAttackDamage(30);
+	setHitPoints(getHitPoints());
+	setEnergyPoints(getEnergyPoints());
+	setAttackDamage(getAttackDamage());
 	std::cout << "[FragTrap]Copy constructor is called. \"Update complete. FragTrap <" << getName() << "> kill kill kill kill\"" << std::endl;
 }
 

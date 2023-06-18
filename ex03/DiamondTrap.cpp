@@ -2,7 +2,10 @@
 
 DiamondTrap::DiamondTrap(void)
 	:	ClapTrap("* NONE *")
+	,	ScavTrap("* NONE *")
+	,	FragTrap("* NONE *")
 {
+	name = "* NONE *";
 	setHitPoints(100);
 	setEnergyPoints(100);
 	setAttackDamage(30);
@@ -16,10 +19,14 @@ DiamondTrap::~DiamondTrap(void)
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other)
 	:	ClapTrap(other.getName())
+	,	ScavTrap(other.getName())
+	,	FragTrap(other.getName())
 {
-	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
+	name = other.name;
+	setName(other.getName());
+	setHitPoints(other.getHitPoints());
+	setEnergyPoints(other.getEnergyPoints());
+	setAttackDamage(other.getAttackDamage());
 	std::cout << "[DiamondTrap]Copy constructor is called. \"Update complete. DiamondTrap <" << getName() << ">\"" << std::endl;
 }
 
@@ -36,8 +43,11 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& rhs)
 	return (*this);
 }
 
-DiamondTrap::DiamondTrap(const std::string& name)
-	:	ClapTrap(name)
+DiamondTrap::DiamondTrap(const std::string& pName)
+	:	ClapTrap(pName)
+	,	ScavTrap(pName)
+	,	FragTrap(pName)
+	,	name(pName)
 {
 	setHitPoints(100);
 	setEnergyPoints(100);
@@ -47,13 +57,8 @@ DiamondTrap::DiamondTrap(const std::string& name)
 
 void	DiamondTrap::attack(const std::string& target)
 {
-	if (getEnergyPoints() <= 0 || getHitPoints() <= 0)
-		std::cout << "[DiamondTrap]Attack failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
-	else
-	{
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "[DiamondTrap]DiamondTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << " [EP]: " << getEnergyPoints() << std::endl;
-	}
+	std::cout << "[DiamondTrap] ";
+	ScavTrap::attack(target);
 }
 
 void	DiamondTrap::takeDamage(unsigned int amount)
@@ -91,13 +96,7 @@ void	DiamondTrap::beRepaired(unsigned int amount)
 	}
 }
 
-void	DiamondTrap::highFivesGuys(void)
+void	DiamondTrap::whoAmI(void)
 {
-	if (getEnergyPoints() <= 0 || getHitPoints() <= 0)
-		std::cout << "[DiamondTrap]High five guys failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
-	else
-	{
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "[DiamondTrap]" << getName() << "\"Let's Hiiiiiiigh fiiiiiiiive guys!!!!!!\"" << std::endl;
-	}
+	std::cout << "[DiamondTrap] Diamond trap name: " << name << ", Clap trap name: " << getName() << std::endl;
 }
