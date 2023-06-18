@@ -51,7 +51,7 @@ void	ScavTrap::attack(const std::string& target)
 		std::cout << "[ScavTrap]Attack failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
 	else
 	{
-		getEnergyPoints() -= 1;
+		setEnergyPoints(getEnergyPoints() - 1);
 		std::cout << "[ScavTrap]ScavTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << " [EP]: " << getEnergyPoints() << std::endl;
 	}
 }
@@ -65,14 +65,14 @@ void	ScavTrap::takeDamage(unsigned int amount)
 	}
 	if (getHitPoints() - amount > 0)
 	{
-		getHitPoints() -= amount;
+		setHitPoints(getHitPoints() - amount);
 		if (getHitPoints() < 0)
-			getHitPoints() = 0;
-		std::cout << "[ScavTrap]ScavTrap " << getName() << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << getName() << ": \"Where is revenge mode...\""<< std::endl;
+			setHitPoints(0);
+		std::cout << "[ScavTrap]ScavTrap " << getName() << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << getName() << ": \"revenge...\""<< std::endl;
 	}
 	else
 	{
-		getHitPoints() = 0;
+		setHitPoints(0);
 		std::cout << "[ScavTrap]ScavTrap " << getName() << " lose all of hit points.." << std::endl;
 	}
 }
@@ -81,17 +81,23 @@ void	ScavTrap::beRepaired(unsigned int amount)
 {
 	if (getEnergyPoints() >= static_cast<int>(amount) && getHitPoints() > 0)
 	{
-		getEnergyPoints() -= amount;
-		getHitPoints() += amount;
+		setEnergyPoints(getEnergyPoints() - amount);
+		setHitPoints(getHitPoints() + amount);
 		std::cout << "[ScavTrap]ScavTrap " << getName() << " repairs " << amount << " points!" << " [HP]: " << getHitPoints() << " [EP]: " << getEnergyPoints() << std::endl;
 	}
 	else
 	{
-		std::cout << "[ScavTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << "[hit point]: " << getHitPoints() << std::endl;
+		std::cout << "[ScavTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
 	}
 }
 
 void	ScavTrap::guardGate(void)
 {
-	std::cout << "[ScavTrap]" << getName() << "'s Gate Keeper mode on." << std::endl;
+	if (getEnergyPoints() <= 0 || getHitPoints() <= 0)
+		std::cout << "[ScavTrap]Guard gate mode failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+	else
+	{
+		setEnergyPoints(getEnergyPoints() - 1);
+		std::cout << "[ScavTrap]" << getName() << "'s Gate Keeper mode on." << std::endl;
+	}
 }

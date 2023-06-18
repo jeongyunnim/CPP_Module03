@@ -20,6 +20,11 @@ int			ClapTrap::getAttackDamage(void) const
 	return (_attackDamage);
 }
 
+void		ClapTrap::setName(std::string name)
+{
+	_name = name;
+}
+
 void		ClapTrap::setHitPoints(int hitPoints)
 {
 	_hitPoints = hitPoints;

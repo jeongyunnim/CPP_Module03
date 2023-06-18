@@ -10,6 +10,7 @@ public:
 	int			getHitPoints(void) const;
 	int			getEnergyPoints(void) const;
 	int			getAttackDamage(void) const;
+	void		setName(std::string name);
 	void		setHitPoints(int hitPoints);
 	void		setEnergyPoints(int energyPoints);
 	void		setAttackDamage(int attackDamage);
