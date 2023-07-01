@@ -3,56 +3,57 @@
 ScavTrap::ScavTrap(void)
 	:	ClapTrap("* NONE *")
 {
-	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 20;
 	std::cout << "[ScavTrap]Defalt Constructor is called. ScavTrap's name set to \"* None *\"" << std::endl;
 }
 
 ScavTrap::~ScavTrap(void)
 {
-	std::cout << "[ScavTrap]Destructor is called. <" << getName() << "> Shut down the system" << std::endl;
+	std::cout << "[ScavTrap]Destructor is called. <" << _name << "> Shut down the system" << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap& other)
-	:	ClapTrap(other.getName())
+	:	ClapTrap(other._name)
 {
-	setHitPoints(getHitPoints());
-	setEnergyPoints(getEnergyPoints());
-	setAttackDamage(getAttackDamage());
-	std::cout << "[ScavTrap]Copy constructor is called. \"" << getName() << " is ready.\"" << std::endl;
+	_hitPoints = other._hitPoints;
+	_energyPoints = other._energyPoints;
+	_attackDamage = other._attackDamage;
+	std::cout << "[ScavTrap]Copy constructor is called. \"" << _name << " is ready.\"" << std::endl;
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& rhs)
 {
-	std::cout << "[ScavTrap]Assignment operator called.\nname: " << getName() << " -> " << rhs.getName() \
-				<< "\nhit points: " << getHitPoints() << " -> " << rhs.getHitPoints() \
-				<< "\nenergy points: " << getEnergyPoints() << " -> " << rhs.getEnergyPoints() \
-				<< "\nattack damage: " << getAttackDamage() << " -> " << rhs.getAttackDamage() << std::endl;
-	setName(rhs.getName());
-	setHitPoints(rhs.getHitPoints());
-	setEnergyPoints(rhs.getEnergyPoints());
-	setAttackDamage(rhs.getAttackDamage());
+	std::cout << "[ScavTrap]Assignment operator called.\nname: " << _name << " -> " << rhs._name \
+				<< "\nhit points: " << _hitPoints << " -> " << rhs._hitPoints \
+				<< "\nenergy points: " << _energyPoints << " -> " << rhs._energyPoints \
+				<< "\nattack damage: " << _attackDamage << " -> " << rhs._attackDamage << std::endl;
+	_name.clear();
+	_name = rhs._name;
+	_hitPoints = rhs._hitPoints;
+	_energyPoints = rhs._energyPoints;
+	_attackDamage = rhs._attackDamage;
 	return (*this);
 }
 
 ScavTrap::ScavTrap(const std::string& name)
 	:	ClapTrap(name)
 {
-	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
-	std::cout << "[ScavTrap]String constructor is called. \"I'm ScavTrap. My name is " << getName() << "\"" << std::endl;
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 20;
+	std::cout << "[ScavTrap]String constructor is called. \"I'm ScavTrap. My name is " << _name << "\"" << std::endl;
 }
 
 void	ScavTrap::attack(const std::string& target)
 {
-	if (getEnergyPoints() <= 0 || getHitPoints() <= 0)
-		std::cout << "[ScavTrap]Attack failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+	if (_energyPoints <= 0 || _hitPoints <= 0)
+		std::cout << "[ScavTrap]Attack failed: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	else
 	{
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "[ScavTrap]ScavTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << " [EP]: " << getEnergyPoints() << std::endl;
+		_energyPoints -= 1;
+		std::cout << "[ScavTrap]ScavTrap " << _name << " attacks " << target << ", causing " << _attackDamage << " points of damage!" << " [EP]: " << _energyPoints << std::endl;
 	}
 }
 
@@ -60,44 +61,44 @@ void	ScavTrap::takeDamage(unsigned int amount)
 {
 	if (amount == 0)
 	{
-		std::cout << "[ScavTrap]ScavTrap " << getName() << " takes " << "zero damage! " << "[HP]: " << getHitPoints() << std::endl;
+		std::cout << "[ScavTrap]ScavTrap " << _name << " takes " << "zero damage! " << "[HP]: " << _hitPoints << std::endl;
 		return ;
 	}
-	if (getHitPoints() - amount > 0)
+	if (_hitPoints - amount > 0)
 	{
-		setHitPoints(getHitPoints() - amount);
-		if (getHitPoints() < 0)
-			setHitPoints(0);
-		std::cout << "[ScavTrap]ScavTrap " << getName() << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << getName() << ": \"revenge...\""<< std::endl;
+		_hitPoints -= amount;
+		if (_hitPoints < 0)
+			_hitPoints = 0;
+		std::cout << "[ScavTrap]ScavTrap " << _name << " takes " << amount << " points of damage! " << "[HP]: " << _hitPoints << "." << std::endl;
 	}
 	else
 	{
-		setHitPoints(0);
-		std::cout << "[ScavTrap]ScavTrap " << getName() << " lose all of hit points.." << std::endl;
+		_hitPoints = 0;
+		std::cout << "[ScavTrap]ScavTrap " << _name << " lose all of hit points.." << std::endl;
 	}
 }
 
 void	ScavTrap::beRepaired(unsigned int amount)
 {
-	if (getEnergyPoints() >= static_cast<int>(amount) && getHitPoints() > 0)
+	if (_energyPoints >= static_cast<int>(amount) && _hitPoints > 0)
 	{
-		setEnergyPoints(getEnergyPoints() - amount);
-		setHitPoints(getHitPoints() + amount);
-		std::cout << "[ScavTrap]ScavTrap " << getName() << " repairs " << amount << " points!" << " [HP]: " << getHitPoints() << " [EP]: " << getEnergyPoints() << std::endl;
+		_energyPoints -= amount;
+		_hitPoints += amount;
+		std::cout << "[ScavTrap]ScavTrap " << _name << " repairs " << amount << " points!" << " [HP]: " << _hitPoints << " [EP]: " << _energyPoints << std::endl;
 	}
 	else
 	{
-		std::cout << "[ScavTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+		std::cout << "[ScavTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	}
 }
 
 void	ScavTrap::guardGate(void)
 {
-	if (getEnergyPoints() <= 0 || getHitPoints() <= 0)
-		std::cout << "[ScavTrap]Guard gate mode failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+	if (_energyPoints <= 0 || _hitPoints <= 0)
+		std::cout << "[ScavTrap]Guard gate mode failed: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	else
 	{
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "[ScavTrap]" << getName() << "'s Gate Keeper mode on." << std::endl;
+		_energyPoints -= 1;
+		std::cout << "[ScavTrap]" << _name << "'s Gate Keeper mode on." << std::endl;
 	}
 }
