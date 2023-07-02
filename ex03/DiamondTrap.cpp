@@ -1,58 +1,51 @@
 #include "DiamondTrap.hpp"
 
 DiamondTrap::DiamondTrap(void)
-	:	ClapTrap("* NONE *")
-	,	ScavTrap("* NONE *")
-	,	FragTrap("* NONE *")
+	:	ClapTrap()
 {
 	name = "* NONE *";
-	setHitPoints(100);
-	setEnergyPoints(100);
-	setAttackDamage(30);
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 30;
 	std::cout << "[DiamondTrap]Defalt Constructor is called. DiamondTrap's name set to \"* None *\"" << std::endl;
 }
 
 DiamondTrap::~DiamondTrap(void)
 {
-	std::cout << "[DiamondTrap]Destructor is called. <" << getName() << "> Shut down the system" << std::endl;
+	std::cout << "[DiamondTrap]Destructor is called. <" << _name << "> Shut down the system" << std::endl;
 }
 
 DiamondTrap::DiamondTrap(const DiamondTrap& other)
-	:	ClapTrap(other.getName())
-	,	ScavTrap(other.getName())
-	,	FragTrap(other.getName())
+	:	ClapTrap(other._name)
+	,	ScavTrap(other)
+	,	FragTrap(other)
 {
-	name = other.name;
-	setName(other.getName());
-	setHitPoints(other.getHitPoints());
-	setEnergyPoints(other.getEnergyPoints());
-	setAttackDamage(other.getAttackDamage());
-	std::cout << "[DiamondTrap]Copy constructor is called. \"Update complete. DiamondTrap <" << getName() << ">\"" << std::endl;
+	std::cout << "[DiamondTrap]Copy constructor is called. \"Update complete. DiamondTrap <" << _name << ">\"" << std::endl;
 }
 
 DiamondTrap& DiamondTrap::operator=(const DiamondTrap& rhs)
 {
-	std::cout << "[DiamondTrap]Assignment operator called.\nname: " << getName() << " -> " << rhs.getName() \
-				<< "\nhit points: " << getHitPoints() << " -> " << rhs.getHitPoints() \
-				<< "\nenergy points: " << getEnergyPoints() << " -> " << rhs.getEnergyPoints() \
-				<< "\nattack damage: " << getAttackDamage() << " -> " << rhs.getAttackDamage() << std::endl;
-	setName(rhs.getName());
-	setHitPoints(rhs.getHitPoints());
-	setEnergyPoints(rhs.getEnergyPoints());
-	setAttackDamage(rhs.getAttackDamage());
+	std::cout << "[DiamondTrap]Assignment operator called.\nname: " << _name << " -> " << rhs._name \
+				<< "\nhit points: " << _hitPoints << " -> " << rhs._hitPoints \
+				<< "\nenergy points: " << _energyPoints << " -> " << rhs._energyPoints \
+				<< "\nattack damage: " << _attackDamage << " -> " << rhs._attackDamage << std::endl;
+	_name.clear();
+	_name = rhs._name;
+	_hitPoints = rhs._hitPoints;
+	_energyPoints = rhs._energyPoints;
+	_attackDamage = rhs._attackDamage;
 	return (*this);
 }
 
-DiamondTrap::DiamondTrap(const std::string& pName)
-	:	ClapTrap(pName)
-	,	ScavTrap(pName)
-	,	FragTrap(pName)
-	,	name(pName)
+DiamondTrap::DiamondTrap(const std::string& name)
+	:	ClapTrap(name)
+	,	ScavTrap(name)
+	,	FragTrap(name)
 {
-	setHitPoints(100);
-	setEnergyPoints(100);
-	setAttackDamage(30);
-	std::cout << "[DiamondTrap]String constructor is called. \"Update complete. DiamondTrap <" << getName() << ">\"" << std::endl;
+	_hitPoints = 100;
+	_energyPoints = 50;
+	_attackDamage = 30;
+	std::cout << "[DiamondTrap]String constructor is called. \"Update complete. DiamondTrap <" << _name << ">\"" << std::endl;
 }
 
 void	DiamondTrap::attack(const std::string& target)
@@ -64,38 +57,38 @@ void	DiamondTrap::takeDamage(unsigned int amount)
 {
 	if (amount == 0)
 	{
-		std::cout << "[DiamondTrap]DiamondTrap " << getName() << " takes " << "zero damage! " << "[HP]: " << getHitPoints() << std::endl;
+		std::cout << "[DiamondTrap]DiamondTrap " << _name << " takes " << "zero damage! " << "[HP]: " << getHitPoints() << std::endl;
 		return ;
 	}
-	if (getHitPoints() - amount > 0)
+	if (_hitPoints - amount > 0)
 	{
-		setHitPoints(getHitPoints() - amount);
-		if (getHitPoints() < 0)
-			setHitPoints(0);
-		std::cout << "[DiamondTrap]DiamondTrap " << getName() << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << getName() << ": \"Danger Danger...\""<< std::endl;
+		_hitPoints -= amount;
+		if (_hitPoints < 0)
+			_hitPoints = 0;
+		std::cout << "[DiamondTrap]DiamondTrap " << _name << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << _name << ": \"Danger Danger...\""<< std::endl;
 	}
 	else
 	{
-		setHitPoints(0);
-		std::cout << "[DiamondTrap]DiamondTrap " << getName() << " lose all of hit points.." << std::endl;
+		_hitPoints = 0;
+		std::cout << "[DiamondTrap]DiamondTrap " << _name << " lose all of hit points.." << std::endl;
 	}
 }
 
 void	DiamondTrap::beRepaired(unsigned int amount)
 {
-	if (getEnergyPoints() >= static_cast<int>(amount) && getHitPoints() > 0)
+	if (_energyPoints >= static_cast<int>(amount) && _hitPoints > 0)
 	{
-		setEnergyPoints(getEnergyPoints() - amount);
-		setHitPoints(getHitPoints() + amount);
-		std::cout << "[DiamondTrap]DiamondTrap " << getName() << " repairs " << amount << " points!" << " [HP]: " << getHitPoints() << " [EP]: " << getEnergyPoints() << std::endl;
+		_energyPoints -= amount;
+		_hitPoints += amount;
+		std::cout << "[DiamondTrap]DiamondTrap " << _name << " repairs " << amount << " points!" << " [HP]: " << _hitPoints << " [EP]: " << _energyPoints << std::endl;
 	}
 	else
 	{
-		std::cout << "[DiamondTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+		std::cout << "[DiamondTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	}
 }
 
 void	DiamondTrap::whoAmI(void)
 {
-	std::cout << "[DiamondTrap] Diamond trap name: " << name << ", Clap trap name: " << getName() << std::endl;
+	std::cout << "[DiamondTrap] Diamond trap name: " << name << ", Clap trap name: " << _name << std::endl;
 }

@@ -5,32 +5,36 @@
 
 int main(void)
 {
-	DiamondTrap mainCharacter("ironMan");
-	DiamondTrap enemy("warMachine");
+	DiamondTrap ironMan("ironMan");
+	DiamondTrap warMachine("warMachine");
+	ScavTrap	scavTrapClone("scav test");
+	FragTrap	fragTrapClone("frag test");
 
 	std::cout << "\n<Copy constructor test>\n=================================================" << std::endl;
-	ClapTrap clapTrapClone(enemy);
-	DiamondTrap diamondTrapClone(enemy);
+	ClapTrap	clapTrapClone(warMachine);
+	DiamondTrap	diamondTrapClone(warMachine);
 	std::cout << "\n<interactive test>\n=================================================" << std::endl;
-	mainCharacter.attack("warMachine");
-	enemy.takeDamage(mainCharacter.getAttackDamage());
-	enemy.attack("ironMan");
-	mainCharacter.takeDamage(enemy.getAttackDamage());
-	mainCharacter.beRepaired(100);
-	mainCharacter.attack("warMachine");
-	enemy.takeDamage(mainCharacter.getAttackDamage());
-	mainCharacter.attack("warMachine");
-	enemy.takeDamage(mainCharacter.getAttackDamage());
-	mainCharacter.attack("warMachine");
-	enemy.takeDamage(mainCharacter.getAttackDamage());
-	mainCharacter.attack("warMachine");
-	enemy.takeDamage(mainCharacter.getAttackDamage());
-	enemy.attack("ironMan");
-	mainCharacter.guardGate();
-	mainCharacter.highFivesGuys();
-	mainCharacter.whoAmI();
+	ironMan.attack("warMachine");
+	warMachine.takeDamage(ironMan.getAttackDamage());
+	warMachine.attack("ironMan");
+	ironMan.takeDamage(warMachine.getAttackDamage());
+	ironMan.beRepaired(100);
+	ironMan.attack("warMachine");
+	warMachine.takeDamage(ironMan.getAttackDamage());
+	ironMan.attack("warMachine");
+	warMachine.takeDamage(ironMan.getAttackDamage());
+	ironMan.attack("warMachine");
+	warMachine.takeDamage(ironMan.getAttackDamage());
+	ironMan.attack("warMachine");
+	warMachine.takeDamage(ironMan.getAttackDamage());
+	warMachine.attack("ironMan");
+	ironMan.guardGate();
+	ironMan.highFivesGuys();
+	ironMan.whoAmI();
 	std::cout << "\n<Assignment operator test>\n=================================================" << std::endl;
-	clapTrapClone = mainCharacter;
-	diamondTrapClone = mainCharacter;
+	clapTrapClone = ironMan;
+	diamondTrapClone = ironMan;
+	scavTrapClone = diamondTrapClone;
+	fragTrapClone = diamondTrapClone;
 	return (0);
 }

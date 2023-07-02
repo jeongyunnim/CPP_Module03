@@ -1,58 +1,58 @@
 #include "FragTrap.hpp"
 
 FragTrap::FragTrap(void)
-	:	ClapTrap("* NONE *")
 {
-	setHitPoints(100);
-	setEnergyPoints(100);
-	setAttackDamage(30);
+	_hitPoints = 100;
+	_energyPoints = 100;
+	_attackDamage = 30;
 	std::cout << "[FragTrap]Defalt Constructor is called. FragTrap's name set to \"* None *\"" << std::endl;
 }
 
 FragTrap::~FragTrap(void)
 {
-	std::cout << "[FragTrap]Destructor is called. <" << getName() << "> Shut down the system" << std::endl;
+	std::cout << "[FragTrap]Destructor is called. <" << _name << "> Shut down the system" << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap& other)
-	:	ClapTrap(other.getName())
+	:	ClapTrap(other._name)
 {
-	setHitPoints(getHitPoints());
-	setEnergyPoints(getEnergyPoints());
-	setAttackDamage(getAttackDamage());
-	std::cout << "[FragTrap]Copy constructor is called. \"Update complete. FragTrap <" << getName() << "> kill kill kill kill\"" << std::endl;
+	_hitPoints = other._hitPoints;
+	_energyPoints = other._energyPoints;
+	_attackDamage = other._attackDamage;
+	std::cout << "[FragTrap]Copy constructor is called. \"Update complete. FragTrap <" << _name << "> kill kill kill kill\"" << std::endl;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& rhs)
 {
-	std::cout << "[FragTrap]Assignment operator called.\nname: " << getName() << " -> " << rhs.getName() \
-				<< "\nhit points: " << getHitPoints() << " -> " << rhs.getHitPoints() \
-				<< "\nenergy points: " << getEnergyPoints() << " -> " << rhs.getEnergyPoints() \
-				<< "\nattack damage: " << getAttackDamage() << " -> " << rhs.getAttackDamage() << std::endl;
-	setName(rhs.getName());
-	setHitPoints(rhs.getHitPoints());
-	setEnergyPoints(rhs.getEnergyPoints());
-	setAttackDamage(rhs.getAttackDamage());
+	std::cout << "[ScavTrap]Assignment operator called.\nname: " << _name << " -> " << rhs._name \
+				<< "\nhit points: " << _hitPoints << " -> " << rhs._hitPoints \
+				<< "\nenergy points: " << _energyPoints << " -> " << rhs._energyPoints \
+				<< "\nattack damage: " << _attackDamage << " -> " << rhs._attackDamage << std::endl;
+	_name.clear();
+	_name = rhs._name;
+	_hitPoints = rhs._hitPoints;
+	_energyPoints = rhs._energyPoints;
+	_attackDamage = rhs._attackDamage;
 	return (*this);
 }
 
 FragTrap::FragTrap(const std::string& name)
 	:	ClapTrap(name)
 {
-	setHitPoints(100);
-	setEnergyPoints(100);
-	setAttackDamage(30);
-	std::cout << "[FragTrap]String constructor is called. \"Update complete. FragTrap <" << getName() << "> kill kill kill kill\"" << std::endl;
+	_hitPoints = 100;
+	_energyPoints = 100;
+	_attackDamage = 30;
+	std::cout << "[FragTrap]String constructor is called. \"Update complete. FragTrap <" << _name << "> kill kill kill kill\"" << std::endl;
 }
 
 void	FragTrap::attack(const std::string& target)
 {
-	if (getEnergyPoints() <= 0 || getHitPoints() <= 0)
-		std::cout << "[FragTrap]Attack failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+	if (_energyPoints <= 0 || _hitPoints <= 0)
+		std::cout << "[FragTrap]Attack failed: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	else
 	{
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "[FragTrap]FragTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << " [EP]: " << getEnergyPoints() << std::endl;
+		_energyPoints -= 1;
+		std::cout << "[FragTrap]FragTrap " << _name << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!" << " [EP]: " << _energyPoints << std::endl;
 	}
 }
 
@@ -60,44 +60,44 @@ void	FragTrap::takeDamage(unsigned int amount)
 {
 	if (amount == 0)
 	{
-		std::cout << "[FragTrap]FragTrap " << getName() << " takes " << "zero damage! " << "[HP]: " << getHitPoints() << std::endl;
+		std::cout << "[FragTrap]FragTrap " << _name << " takes " << "zero damage! " << "[HP]: " << _hitPoints << std::endl;
 		return ;
 	}
-	if (getHitPoints() - amount > 0)
+	if (_hitPoints - amount > 0)
 	{
-		setHitPoints(getHitPoints() - amount);
-		if (getHitPoints() < 0)
-			setHitPoints(0);
-		std::cout << "[FragTrap]FragTrap " << getName() << " takes " << amount << " points of damage! " << "[HP]: " << getHitPoints() << ".\n" << getName() << ": \"Danger Danger...\""<< std::endl;
+		_hitPoints -= amount;
+		if (_hitPoints < 0)
+			_hitPoints = 0;
+		std::cout << "[FragTrap]FragTrap " << _name << " takes " << amount << " points of damage! " << "[HP]: " << _hitPoints << "." << std::endl;
 	}
 	else
 	{
-		setHitPoints(0);
-		std::cout << "[FragTrap]FragTrap " << getName() << " lose all of hit points.." << std::endl;
+		_hitPoints = 0;
+		std::cout << "[FragTrap]FragTrap " << _name << " lose all of hit points.." << std::endl;
 	}
 }
 
 void	FragTrap::beRepaired(unsigned int amount)
 {
-	if (getEnergyPoints() >= static_cast<int>(amount) && getHitPoints() > 0)
+	if (_energyPoints >= static_cast<int>(amount) && _hitPoints > 0)
 	{
-		setEnergyPoints(getEnergyPoints() - amount);
-		setHitPoints(getHitPoints() + amount);
-		std::cout << "[FragTrap]FragTrap " << getName() << " repairs " << amount << " points!" << " [HP]: " << getHitPoints() << " [EP]: " << getEnergyPoints() << std::endl;
+		_energyPoints -= amount;
+		_hitPoints += amount;
+		std::cout << "[FragTrap]FragTrap " << _name << " repairs " << amount << " points!" << " [HP]: " << _hitPoints << " [EP]: " << _energyPoints << std::endl;
 	}
 	else
 	{
-		std::cout << "[FragTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+		std::cout << "[FragTrap]Repair faild: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	}
 }
 
 void	FragTrap::highFivesGuys(void)
 {
-	if (getEnergyPoints() <= 0 || getHitPoints() <= 0)
-		std::cout << "[FragTrap]High five guys failed: Not enough energy point or hit point. [energy point]: " << getEnergyPoints() << " [hit point]: " << getHitPoints() << std::endl;
+	if (_energyPoints <= 0 || _hitPoints <= 0)
+		std::cout << "[FragTrap]High five guys failed: Not enough energy point or hit point. [energy point]: " << _energyPoints << " [hit point]: " << _hitPoints << std::endl;
 	else
 	{
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "[FragTrap]" << getName() << "\"Let's Hiiiiiiigh fiiiiiiiive guys!!!!!!\"" << std::endl;
+		_energyPoints -= 1;
+		std::cout << "[FragTrap]" << _name << "\"Let's Hiiiiiiigh fiiiiiiiive guys!!!!!!\"" << std::endl;
 	}
 }
