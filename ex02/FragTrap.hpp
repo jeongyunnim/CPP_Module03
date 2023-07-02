@@ -16,6 +16,4 @@ public:
 	void beRepaired(unsigned int amount);
 	void highFivesGuys(void);
 
-private:
-
 };
