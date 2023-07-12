@@ -42,6 +42,7 @@ DiamondTrap::DiamondTrap(const std::string& name)
 	,	ScavTrap(name)
 	,	FragTrap(name)
 {
+	this->name = name;
 	_hitPoints = 100;
 	_energyPoints = 50;
 	_attackDamage = 30;
